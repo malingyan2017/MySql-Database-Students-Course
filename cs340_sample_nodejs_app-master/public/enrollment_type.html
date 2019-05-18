@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Academic Rank</title>
+    <link rel="stylesheet" type="text/css" href="main.css">
+</head>
+<body>
+    <!-- Navigation*/-->
+<ul>
+  <li><a href="index.html">Home</a></li>
+  <li><a href="student/student.html">Student</a></li>
+  <li><a href="instructor/instructor.html">Instructors</a></li>
+  <li><a href="academic_rank.html">Academic Rank</a></li> 
+  <li><a href="class/class.html">Classes</a></li>
+  <li><a href="degree/degrees.html">Degrees</a></li>
+  <li><a href="enrollment.html">Enrollment</a></li>
+</ul>
+
+
+
+<h1>List of Enrollment Types</h1>
+<p>Please see below for list of enrollment type of a student.  Below is sample data (this is not an active table.)</p>
+<button id="add_rank" onclick="myFunction()">
+<div class="tooltip">Add New Enrollment Type
+    <span class="tooltiptext">This will add a new row instead of a link to another page</span>
+</div>
+</button>
+<p>
+
+<table id="myTable" >
+    <th>
+        <div class="tooltip">ID#
+            <span class="tooltiptext">Will be set to enrollment_id</span>
+        </div>
+    </th>
+    <th>Enrollment Type</th>
+    <th><div class="tooltip">Edit
+            <span class="tooltiptext">Edit will allow you to alter row on the same page</span>
+    </th>
+    <th>Delete</th>
+
+    <tr>
+        <td>34</td>
+        <td>part time (1)</td>
+        <td><button onclick="window.location.href='enrollment.html'">Edit</button></td>
+        <td><button onclick="window.location.href='enrollment.html'">Delete</button></td>
+    </tr>
+
+    <tr>
+        <td>35</td>
+        <td>part time (2</td>
+        <td><button onclick="window.location.href='enrollment.html'">Edit</button></td>
+        <td><button onclick="window.location.href='enrollment.html'">Delete</button></td>
+    </tr>
+
+    <tr>
+        <td>36</td>
+        <td>full time (3)</td>
+        <td><button onclick="window.location.href='enrollment.html'">Edit</button></td>
+        <td><button onclick="window.location.href='enrollment.html'">Delete</button></td>
+    </tr>
+
+    <tr>
+        <td>437<d>
+        <td>full time (4)</td>
+        <td><button onclick="window.location.href='enrollment.html'">Edit</button></td>
+        <td><button onclick="window.location.href='enrollment.html'">Delete</button></td>
+    </tr>
+</table>
+
+</body>
+</html>
