@@ -1,0 +1,26 @@
+<html>
+{{#each foo}}
+{{this}}
+{{/each}}
+<h3>Add new enrollment_type:</h3>
+<form id="add_rank" action="/enrollment" method="post">
+    Type: <input type="text" name="type">
+
+
+<h3>Current enrollment_type:</h3>
+<table>
+    <thead> 
+        <th>Type</th>   
+    </thead> 
+    <tbody>
+        {{#each people}} 
+        <tr> 
+            <td>{{type}}</td> 
+            
+            <td><button onclick="deletePerson({{id}})">Delete</button></td>
+            <td><a href="/people/{{id}}">Update</a></td>
+        </tr> 
+        {{/each}} 
+    </tbody> 
+</table> 
+</html>
