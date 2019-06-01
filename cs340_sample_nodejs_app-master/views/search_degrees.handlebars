@@ -1,0 +1,24 @@
+<h3>Degree Search</h3>
+
+<h3>Table Data: </h3>
+<table>
+<thead>
+	<th>Degree ID</th>
+	<th>Degree Type</th>
+	<th>Field</th>
+	<th>Delete</th>
+	<th>Edit</th>
+</thead>
+
+<tbody>
+{{#each degrees}}
+	<tr>
+		<td>{{degree_id}}</td>
+		<td>{{degree_type}}</td>
+		<td>{{field}}</td>
+        <td><button onclick="deleteDegree({{degree_id}})">Delete</button></td>
+        <td><a href="/degrees/{{degree_id}}">Edit</a></td>   
+	</tr>
+{{/each}}
+</tbody>
+</table>

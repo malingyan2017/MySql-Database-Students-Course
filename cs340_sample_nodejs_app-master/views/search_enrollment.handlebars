@@ -1,0 +1,20 @@
+<h3>Search Enrollments</h3>
+
+<table>
+    <thead> 
+        <th>ID</th> 
+        <th>Enrollment Type</th>
+        <th>Delete</th>
+        <th>Edit</th>
+    </thead> 
+    <tbody>
+        {{#each enrollment}} 
+        <tr> 
+            <td>{{enrollment_id}}</td> 
+            <td>{{type}}</td>
+            <td><button onclick="deleteEnrollment({{enrollment_id}})">Delete</button></td>
+            <td><a href="/enrollment/{{enrollment_id}}">Edit</a></td>   
+        </tr> 
+        {{/each}} 
+    </tbody> 
+</table> 

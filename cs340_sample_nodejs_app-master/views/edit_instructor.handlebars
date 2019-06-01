@@ -1,0 +1,61 @@
+<h3>Edit Instructors</h3>
+
+<form id="edit_instructor">
+	{{#each instructor}}
+	 <input type="hidden" id="instructor_id" name="instructor_id" value="{{instructor_id}}">
+
+	First Name: <input type="text" id="first_name" name="first_name" value={{first_name}}>
+		<br><br>
+	Last Name: <input type="text" id="last_name" name="last_name" value={{last_name}}>
+		<br><br>
+	{{/each}}
+
+    Academic Rank: <select name="academic_rank" id="rank_id">
+		{{#each academic_rank}}
+		<option value="{{rank_id}}">{{name}}</option>
+		{{/each}}
+	</select>
+	<br><br>
+	<input type="submit" value="Update" onclick="updatePerson({{instructor_id}})">
+
+	<br><br>
+</form>
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous">
+        
+</script>
+
+<script>
+
+function updatePerson(instructor_id){
+event.preventDefault();
+
+var first_name = $('#first_name').val();
+var last_name = $('#last_name').val();
+var rank_id = $('#rank_id').val();
+
+console.log(instructor_id);
+console.log(first_name);
+console.log(last_name);
+console.log(rank_id);
+
+    $.ajax({
+        url: '/instructor',
+        type: 'PUT',
+        data: "instructor_id="+instructor_id+
+        		"&first_name="+first_name+
+        		"&last_name="+last_name+
+        		"&rank_id="+rank_id,
+
+        success: function(result){
+        console.log(result);
+        console.log("IT WORKS");
+            window.location.replace("/instructor");
+        }
+    })
+};
+
+
+</script>

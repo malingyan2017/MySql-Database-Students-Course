@@ -1,0 +1,45 @@
+<h3>Edit enrollment</h3>
+
+
+<form id="edit_enrollment">
+
+	{{#each enrollment}}
+	<input type="hidden" id="enrollment_id" name="enrollment_id" value="{{enrollment_id}}">
+    Type: <input type="text" name="type" id="type" value="{{type}}">
+	{{/each}}
+    <br><br>
+    <input type="submit" value="Add Enrollment" onclick="updatePerson({{enrollment_id}})">
+ </form>
+<br>
+
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous">
+        
+</script>
+
+<script>
+
+function updatePerson(enrollment_id){
+event.preventDefault();
+
+var type = $('#type').val();
+var enrollment_id = $('#enrollment_id').val();
+
+    $.ajax({
+        url: '/enrollment',
+        type: 'PUT',
+        data: "enrollment_id="+enrollment_id+
+        		"&type="+type,
+
+        success: function(result){
+        console.log(result);
+        console.log("IT WORKS");
+            window.location.replace("/enrollment");
+        }
+    })
+};
+
+
+</script>

@@ -1,0 +1,42 @@
+<h3>Edit Academic Rank Name</h3>
+
+<form id="edit_AcademicRank">
+	{{#each academic_rank}}
+	<input type="hidden" id="rank_id" name="rank_id" value="{{rank_id}}">
+	Rank Name: <input type="text" name="name" id="name" value="{{name}}">
+	<br><br>
+	{{/each}}
+	<input type="submit" value="Save Changes" onclick="updateRank({{rank_id}})">
+	</form>
+<br>
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous">
+        
+</script>
+
+<script>
+
+function updateRank(rank_id){
+event.preventDefault();
+
+var rank_id = $('#rank_id').val();
+var name = $('#name').val();
+
+    $.ajax({
+        url: '/academic_rank',
+        type: 'PUT',
+        data: "rank_id="+rank_id+
+        		"&name="+name,
+
+        success: function(result){
+        console.log(result);
+        console.log("IT WORKS");
+            window.location.replace("/academic_rank");
+        }
+    })
+};
+
+
+</script>

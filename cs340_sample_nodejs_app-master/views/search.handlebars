@@ -1,0 +1,19 @@
+<h3>Edit Instructors</h3>
+
+<form id="edit_instructor" action="/instructor" method="post">
+	{{#each instructor}}
+	First Name: <input type="text" name="first_name" value={{first_name}}>
+		<br><br>
+	Last Name: <input type="text" name="last_name" value={{last_name}}>
+		<br><br>
+	{{/each}}
+
+    Academic Rank: <select name="academic_rank">
+		{{#each academic_rank}}
+		<option value="{{rank_id}}">{{name}}</option>
+		{{/each}}
+	</select>
+	<br><br>
+	<button onclick="updatePerson({{instructor_id}})">Update</button>
+	<br><br>
+</form>

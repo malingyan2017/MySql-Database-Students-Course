@@ -1,0 +1,141 @@
+<h1> List of individual classes for each student</h1>
+
+<h3> Associate Class with a Student </h3>
+<form id="add_student_class">
+    Select Student: <select id="student_id">
+<!-- This needs to be selecting from student table -->
+        {{#each students}}
+          <option value="{{student_id}}">{{first_name}} {{last_name}}</option>
+        {{/each}}
+    </select>
+    <br><br>
+    
+<!-- This needs to be selecting from class table -->
+    Classes: 
+    <select id="class_id"> 
+        {{#each classes}}
+        <option value="{{class_id}}">{{class_name}}</option>
+        {{/each}}
+    </select>
+    <br><br>
+
+    <input type="submit" value="Associate class" id="add_student_class" onclick="addtoStudent_Class()">
+    </form>
+
+
+<h3>Filter Data</h3>
+<form id='filter_student_class' action='' method=''>
+<!--- this form does not submit directly, the button handles all the interaction with backend -->
+    <label> Filter by class name </label>
+    <select id='class_id_filter' name="class_id"> 
+        {{#each student_classes}}
+        <option value="{{class_id}}">{{class_name}}</option>
+        {{/each}}
+    </select>
+    <input type="button" value="Filter" onclick="filterStudentClassByName()">
+</form>
+<br>
+
+<h3>Search Data</h3>
+<form id='search_student_class' action='' method=''>
+<!--- this form does not submit directly, the button handles all the interaction with backend -->
+    <label> Search people for first name starting with:</label>
+    <input id='first_name_search_string' type='text' name='first_name_search_string' value=''>
+    <input type="button" value="Search" onclick="searchPeopleByFirstName()">
+</form>
+<br>
+
+<h3> List of Students with their classes </h3>
+<table>
+    <thead> 
+        <th>First Name</th> 
+        <th>Last Name</th>
+        <th>Class ID</th> 
+        <th>Class Name</th>
+        <th>Delete</th>
+    </thead> 
+    <tbody> 
+        {{#each student_classes}} 
+        <tr> 
+            <td>{{first_name}}</td> 
+            <td>{{last_name}}</td>
+            <td>{{class_id}}</td> 
+            <td>{{class_name}}</td>
+            <td><button onclick="deleteStudentClass({{class_id}})">Delete</button></td>
+        </tr>
+        {{/each}} 
+    </tbody>
+</table> 
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous">
+        
+</script>
+
+<script>
+    function deleteStudentClass(class_id){
+        console.log("We're in delete StudentClass");
+    $.ajax({
+        url: '/student_class/' + class_id,
+        type: 'DELETE',
+        success: function(result){
+            window.location.reload(true);
+            console.log(result);
+        }
+    })
+};
+
+    function addtoStudent_Class(student_id, class_id) {
+        console.log("I'm in add student_class");
+
+        event.preventDefault();
+        var stud = document.getElementById("student_id");
+        console.log(stud);
+
+        var studentSelect = stud.options[stud.selectedIndex].value;
+
+        var cla = document.getElementById("class_id");
+        console.log(cla);
+
+        var classSelect = cla.options[cla.selectedIndex].value;
+
+        console.log(studentSelect);
+        console.log(classSelect);
+
+        $.ajax({
+            url: '/student_class',
+            data: {student_id: studentSelect, class_id: classSelect},
+            type: 'POST',
+            success: function(result) {
+                if(result.code == "ER_DUP_ENTRY"){
+                    window.alert("Duplicate entry");
+                }
+                window.location.reload(true);
+                console.log(result);
+            }
+
+        })
+    };
+
+
+function filterStudentClassByName() {
+    event.preventDefault();
+        //get students by class name
+    var class_id = document.getElementById('class_id_filter').value;
+    console.log('calling filterStudentClassByName');
+    console.log(class_id);
+    //construct the URL and redirect to it
+    window.location = '/filter/student_class/' + parseInt(class_id)
+}
+ 
+ function searchPeopleByFirstName() {
+    //get the first name 
+    var first_name_search_string  = document.getElementById('first_name_search_string').value;
+    console.log(first_name_search_string);
+    //construct the URL and redirect to it
+    window.location = '/search/student_class/' + encodeURI(first_name_search_string)
+}
+
+
+</script>

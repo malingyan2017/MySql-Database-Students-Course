@@ -1,0 +1,148 @@
+<h1>Student List</h1>
+<p>List of students enrolled at OSU. </p>
+
+
+<h3>Add New Student</h3>
+<form id="addstudent" action="/student" method="post">
+	First Name: <input type="text" name="first_name">
+		<br><br>
+	Last Name: <input type="text" name="last_name">
+		<br><br>
+	Enrollment Type:  <select name="enrollment_type">
+		{{#each enrollment}}
+		<option value="{{enrollment_id}}">{{type}}</option>
+		{{/each}}
+	</select>
+	<br><br>
+	Quarter Enrolled at OSU: <select name="enrollment_qtr">
+		<option>FALL</option>
+		<option>WINTER</option>
+		<option>SPRING</option>
+		<option>SUMMER</option>
+	</select> 
+		<br><br>
+	Year enrolled at OSU: <select name="enrollment_year">
+							<option>2010</option>
+							<option>2011</option>
+							<option>2012</option>
+							<option>2013</option>
+							<option>2014</option>
+							<option>2015</option>
+							<option>2016</option>
+							<option>2017</option>
+							<option>2018</option>
+							<option>2019</option>
+							<option>2020</option>
+							<option>2021</option>
+							<option>2022</option>
+							<option>2023</option>
+							<option>2024</option>
+							<option>2025</option>
+						</select>
+							<br><br>
+	<input type="submit" value="Add New Student">
+</form>
+<br>
+
+<h3>Filter Data</h3>
+<form id='filter_year' action='' method=''>
+<!--- this form does not submit directly, the button handles all the interaction with backend -->
+    <label> Filter by Student Year </label>
+	<select id='year_filter' name="enrollment_year">
+							<option>2010</option>
+							<option>2011</option>
+							<option>2012</option>
+							<option>2013</option>
+							<option>2014</option>
+							<option>2015</option>
+							<option>2016</option>
+							<option>2017</option>
+							<option>2018</option>
+							<option>2019</option>
+							<option>2020</option>
+							<option>2021</option>
+							<option>2022</option>
+							<option>2023</option>
+							<option>2024</option>
+							<option>2025</option>
+						</select>
+    <input type="button" value="Filter" onclick="filterStudentByYear()">
+</form>
+<br>
+
+<h3>Search Data</h3>
+<form id='search_student' action='' method=''>
+<!--- this form does not submit directly, the button handles all the interaction with backend -->
+    <label> Search people for first name starting with:</label>
+    <input id='first_name_search_string' type='text' name='first_name_search_string' value=''>
+    <input type="button" value="Search" onclick="searchStudentByFirstName()">
+</form>
+<br>
+
+
+<h3>Table Data </h3>
+<table>
+	<thead>
+		<th>ID#</th>
+		<th>First Name</th>
+		<th>Last Name</th>
+		<th>Enrollment Type</th>
+		<th>Enrollment Quarter</th>
+		<th>Enrollment Year</th>
+		<th>Delete</th>			<!--this is a button to student_classes -->
+		<th>Update</th>			<!--space for edit button -->
+	</thead>
+	<tbody>
+	{{#each students}}
+		<tr>
+			<td>{{student_id}}</td>
+			<td>{{first_name}}</td>		
+			<td>{{last_name}}</td>
+			<td>{{type}}</td>
+			<td>{{enrollment_qtr}}</td>
+			<td>{{enrollment_year}}</td>
+			<td><button onclick="deleteStudent({{student_id}})">Delete</button></td>
+			<td><a href="/student/{{student_id}}">Edit</a></td>	
+		</tr>
+		{{/each}}
+	</tbody>
+</table>
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+		integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+		crossorigin="anonymous">
+		
+		</script>
+
+<script>
+	function deleteStudent(student_id){
+		console.log("We're in delete");
+    $.ajax({
+        url: '/student/' + student_id,
+        type: 'DELETE',
+        success: function(result){
+            window.location.reload(true);
+            console.log(result);
+        }
+    })
+};
+
+
+function filterStudentByYear() {
+    //get the id of the selected homeworld from the filter dropdown
+    var filterYear = document.getElementById('year_filter').value;
+    console.log('calling filterStudentByYear');
+    console.log(filterYear);
+    //construct the URL and redirect to it
+    window.location = '/filter/student/' + parseInt(filterYear)
+}
+
+function searchStudentByFirstName() {
+    //get the first name 
+    var first_name_search_string  = document.getElementById('first_name_search_string').value;
+    console.log(first_name_search_string);
+    //construct the URL and redirect to it
+    window.location = '/search/student/' + encodeURI(first_name_search_string)
+}
+
+</script>

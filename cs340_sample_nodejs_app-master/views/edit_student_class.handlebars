@@ -1,0 +1,52 @@
+<h3>Edit Student_Class Associations</h3>
+
+{{#each students}}
+<h3> Associate Class with Student: {{first_name}}} {{last_name}} </h3>
+{{/each}}
+
+<form id="edit_student_class">
+<br>
+    
+<!-- This needs to be selecting from class table -->
+    Classes: 
+    <select id="class_id" name="class_id"> 
+        {{#each classes}}
+        <option value="{{class_id}}">{{class_name}}</option>
+        {{/each}}
+    </select>
+    <br><br>
+
+    <input type="submit" value="Associate class" id="add_student_class" onclick="updatePerson({{student_id}})">
+</form>
+
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous">
+        
+</script>
+
+<script>
+
+function updatePerson(student_id){
+event.preventDefault();
+
+var student_id = $('#student_id').val();
+var class_id = $('#class_id').val();
+
+    $.ajax({
+        url: '/student_class',
+        type: 'PUT',
+        data: "student_id="+student_id+
+        		"&class_id="+class_id,
+
+        success: function(result){
+        console.log(result);
+        console.log("IT WORKS");
+            window.location.replace("/student_class");
+        }
+    })
+};
+
+
+</script>

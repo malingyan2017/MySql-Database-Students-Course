@@ -1,0 +1,25 @@
+<h3> Search Results of Students </h3>
+
+<h3>Table Data</h3>
+<table>
+    <thead> 
+        <th>First Name</th> 
+        <th>Last Name</th>
+        <th>Class ID</th> 
+        <th>Class Name</th>
+        <th>Delete</th>
+        <th>Edit</th>
+    </thead> 
+    <tbody> 
+        {{#each student_classes}} 
+        <tr> 
+            <td>{{first_name}}</td> 
+            <td>{{last_name}}</td>
+            <td>{{class_id}}</td> 
+            <td>{{class_name}}</td>
+            <td><button onclick="deleteStudentClass({{class_id}})">Delete</button></td>
+            <td><a href="/student_class/{{class_id}}">Edit</a></td>   
+        </tr>
+        {{/each}} 
+    </tbody>
+</table> 

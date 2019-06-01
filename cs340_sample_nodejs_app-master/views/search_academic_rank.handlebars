@@ -1,0 +1,27 @@
+<h3>Academic Rank Name Search</h3>
+
+<table>
+<thead>
+	<th>Rank ID</th>
+	<th>Academic Rank</th>
+	<th>Delete</th>
+	<th>Edit</th>
+</thead>
+<tbody>
+{{#each rank}}
+	<tr>
+		<td>{{rank_id}}</td>
+		<td>{{name}}</td>
+		<td><button onclick="deleteRank({{rank_id}})">Delete</button></td>
+	    <td><a href="/academic_rank/{{rank_id}}">Edit</a></td>   
+	</tr>
+{{/each}}
+
+</tbody>
+</table>
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous">
+
+        </script>

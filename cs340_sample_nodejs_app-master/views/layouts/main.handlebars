@@ -1,13 +1,24 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
 <head>
-	<title>Demo Page</title>
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-    {{#each jsscripts}}
-    <script src="/static/{{this}}"></script>
-    {{/each}}
+	<title>School Database</title>
+  <link rel="stylesheet" type="text/css" href="/main.css">
 </head>
 <body>
+<!--nav bar-->
+<ul>
+  <li><a href="/">Home</a></li>
+  <li><a href="/student">Student</a></li>
+  <li><a href="/enrollment">Enrollment</a></li>
+  <li><a href="/student_class">Students_Classes(M-M)</a></li>
+  <li><a href="/instructor">Instructors</a></li>
+  <li><a href="/academic_rank">Academic Rank</a></li> 
+  <li><a href="/class">Classes</a></li>
+  <li><a href="/degrees">Degrees</a></li>
+  <li><a href="/student_degree">Students_Degrees(M-M)</a></li>
+</ul>
+
 	{{{body}}}
+
 </body>
 </html>

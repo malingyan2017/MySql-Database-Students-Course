@@ -1,0 +1,84 @@
+<h3>Edit Student</h3>
+<form id="edit_student">
+	{{#each students}}
+	<input type="hidden" id="student_id" name="student_id" value="{{student_id}}">
+
+	First Name: <input type="text" id="first_name" name="first_name" value={{first_name}}>
+		<br><br>
+	Last Name: <input type="text" id="last_name" name="last_name" value={{last_name}}>
+		<br><br>
+		{{/each}}
+	Enrollment Type:  <select name="enrollment_type" id="enrollment_id">
+		{{#each enrollment}}
+		<option value="{{enrollment_id}}">{{type}}</option>
+		{{/each}}
+	</select>
+	<br><br>
+	Quarter Enrolled at OSU: <select name="enrollment_qtr" id="enrollment_qtr" value="{{enrollment_qtr}}">
+		<option>FALL</option>
+		<option>WINTER</option>
+		<option>SPRING</option>
+		<option>SUMMER</option>
+	</select> 
+		<br><br>
+	Year enrolled at OSU: <select name="enrollment_year" id="enrollment_year" value="{{enrollment_year}}">
+							<option>2010</option>
+							<option>2011</option>
+							<option>2012</option>
+							<option>2013</option>
+							<option>2014</option>
+							<option>2015</option>
+							<option>2016</option>
+							<option>2017</option>
+							<option>2018</option>
+							<option>2019</option>
+							<option>2020</option>
+							<option>2021</option>
+							<option>2022</option>
+							<option>2023</option>
+							<option>2024</option>
+							<option>2025</option>
+						</select>
+							<br><br>
+	<input type="submit" value="Save changes" onclick="updatePerson({{student_id}})">
+</form>
+<br><br>
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous">
+        
+</script>
+
+<script>
+
+function updatePerson(student_id){
+event.preventDefault();
+
+var first_name = $('#first_name').val();
+var last_name = $('#last_name').val();
+var enrollment_id = $('#enrollment_id').val();
+var enrollment_qtr = $('#enrollment_qtr').val();
+var enrollment_year = $('#enrollment_year').val();
+
+
+    $.ajax({
+        url: '/student',
+        type: 'PUT',
+        data: "first_name="+first_name+
+        		"&last_name="+last_name+
+        		"&enrollment_id="+enrollment_id+
+        		"&enrollment_qtr="+enrollment_qtr+
+        		"&enrollment_year="+enrollment_year+
+        		"&student_id="+student_id,
+
+        success: function(result){
+        console.log(result);
+        console.log("IT WORKS");
+            window.location.replace("/student");
+        }
+    })
+};
+
+
+</script>

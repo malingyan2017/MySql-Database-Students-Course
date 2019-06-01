@@ -1,0 +1,71 @@
+
+<h1>List of Academic Ranks</h1>
+<p>Please see below for list of academic ranks at OSU.  Delete/add/search are all working! Fiter is not necessary in this page because there is only one attribute per primary key (this would be a one-to-one search, which didn't seem useful for this table.) </p>
+<p>Please let us know if more features/filters should be added</p>
+
+<h3>Add a new academic rank</h3>
+<form id="add_AcademicRank" action="/academic_rank" method="post">
+	Rank Name: <input type="text" name="name">
+	<br><br>
+	<input type="submit" value="Add Rank">
+	</form>
+<br>
+
+<h3>Search Data</h3>
+<form id='search_academic_rank' action='' method=''>
+<!--- this form does not submit directly, the button handles all the interaction with backend -->
+    <label> Search people for Academic Rank starting with:</label>
+    <input id='first_name_search_string' type='text' name='first_name_search_string' value=''>
+    <input type="button" value="Search" onclick="searchAcademicRank()">
+</form>
+<br>
+
+<table>
+<thead>
+	<th>Rank ID</th>
+	<th>Academic Rank</th>
+	<th>Delete</th>
+	<th>Edit</th>
+</thead>
+<tbody>
+{{#each rank}}
+	<tr>
+		<td>{{rank_id}}</td>
+		<td>{{name}}</td>
+		<td><button onclick="deleteRank({{rank_id}})">Delete</button></td>
+	    <td><a href="/academic_rank/{{rank_id}}">Edit</a></td>   
+	</tr>
+{{/each}}
+
+</tbody>
+</table>
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous">
+
+        </script>
+
+<script>
+    function deleteRank(rank_id){
+        console.log("We're in delete in Rank");
+    $.ajax({
+        url: '/academic_rank/' + rank_id,
+        type: 'DELETE',
+        success: function(result){
+            window.location.reload(true);
+            console.log(result);
+        }
+    })
+};
+
+function searchAcademicRank() {
+    //get the academic rank name
+    var first_name_search_string  = document.getElementById('first_name_search_string').value;
+    console.log(first_name_search_string);
+    //construct the URL and redirect to it
+    window.location = '/search/academic_rank/' + encodeURI(first_name_search_string)
+}
+
+
+</script>

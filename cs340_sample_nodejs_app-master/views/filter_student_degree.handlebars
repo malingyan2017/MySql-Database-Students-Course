@@ -1,0 +1,26 @@
+<h3>Filter of for Student Degree by Field</h3>
+
+<h3>Table Data:</h3>
+<table>
+    <thead> 
+        <th>First Name</th>
+        <th>Last Name</th> 
+        <th>Degree ID</th> 
+        <th>Degree Type</th>
+        <th>Degree Field</th>
+        <th>Delete</th>
+    </thead> 
+    <tbody> 
+        {{#each student_degree}} 
+        <tr> 
+            <td>{{first_name}}</td> 
+            <td>{{last_name}}</td>
+            <td>{{degree_id}}</td> 
+            <td>{{degree_type}}</td> 
+            <td>{{field}}</td>
+            <td><button onclick="deleteStudentDegree({{degree_id}})">Delete</button></td>
+        </tr>
+        {{/each}} 
+
+    </tbody>
+</table> 

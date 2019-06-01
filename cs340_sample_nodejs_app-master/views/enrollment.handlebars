@@ -1,29 +1,73 @@
-<html>
-{{#each foo}}
-{{this}}
-{{/each}}
-<h3>Add new enrollment:</h3>
-<form id="addenrollment" action="/enrollment" method="post">
-    Type: <input type="text" name="type"><br>
-    <input type="submit" value="Submit">
- </form>
-<br/>
+<h1>List of Enrollment Types</h1>
+<p>List of the types of enrollments at OSU. </p>
 
-<h3>Current enrollment:</h3>
+<h3>Add new enrollment</h3>
+<form id="addenrollment" action="/enrollment" method="post">
+    Type: <input type="text" name="type">
+    <br><br>
+    <input type="submit" value="Add Enrollment">
+ </form>
+<br>
+
+
+
+<h3>List of current enrollment types</h3>
 <table>
     <thead> 
         <th>ID</th> 
         <th>Enrollment Type</th>
+        <th>Delete</th>
+        <th>Edit</th>
     </thead> 
     <tbody>
         {{#each enrollment}} 
         <tr> 
-            <td>{{id}}</td> 
+            <td>{{enrollment_id}}</td> 
             <td>{{type}}</td>
-            <td><button onclick="deleteEnrollment({{id}})">Delete</button></td>
-            <td><a href="/enrollment/{{id}}">Update</a></td>
+            <td><button onclick="deleteEnrollment({{enrollment_id}})">Delete</button></td>
+            <td><a href="/enrollment/{{enrollment_id}}">Edit</a></td>   
         </tr> 
         {{/each}} 
     </tbody> 
 </table> 
-</html>
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous">
+
+        </script>
+
+<script>
+    function deleteEnrollment(enrollment_id){
+        console.log("We're in delete");
+    $.ajax({
+        url: '/enrollment/' + enrollment_id,
+        type: 'DELETE',
+        success: function(result){
+            window.location.reload(true);
+            console.log(result);
+        }
+    })
+};
+
+function updateStudent(enrollment_id){
+    $.ajax({
+        url: '/enrollment/' + id,
+        type: 'PUT',
+        data: $('#update-enrollment').serialize(),
+        success: function(result){
+            window.location.replace("./");
+        }
+    })
+};
+
+function searchDegreesByField() {
+    //get the enrollment name
+    var first_name_search_string  = document.getElementById('first_name_search_string').value;
+    console.log(first_name_search_string);
+    //construct the URL and redirect to it
+    window.location = '/search/enrollment/' + encodeURI(first_name_search_string)
+}
+
+
+</script>

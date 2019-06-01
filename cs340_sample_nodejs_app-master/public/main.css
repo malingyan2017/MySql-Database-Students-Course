@@ -1,3 +1,4 @@
+
 .tooltip {
   position: relative;
   display: inline-block;
@@ -8,7 +9,7 @@
   visibility: hidden;
   width: 120px;
   background-color: black;
-  color: #fff;
+  color:black;
   text-align: center;
   border-radius: 6px;
   padding: 5px 0;
@@ -28,7 +29,7 @@ ul {
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background-color: #333;
+  background-color: rgb(86, 23, 122);
 }
 
 li {

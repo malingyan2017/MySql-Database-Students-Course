@@ -1,0 +1,58 @@
+<h3>Edit degree Type and Field</h3>
+
+<h3>Add a new degree field</h3>
+<form id="edit_degrees">
+{{#each degrees}}
+	<input type="hidden" id="degree_id" name="degree_id" value="{{degree_id}}">
+    Type: <input type="text" name="degree_type" id="degree_type" value="{{degree_type}}">
+    <br><br>
+    Field:<input type="text" name="field" id="field" value="{{field}}">
+    <br><br>
+{{/each}}
+    <input type="submit" value="Update Degree" onclick="updateDegree({{degree_id}})">
+ </form>
+<br>
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous">
+        
+</script>
+
+<script>
+    function deleteDegree(degree_id){
+        console.log("We're in delete degrees");
+    $.ajax({
+        url: '/degrees/' + degree_id,
+        type: 'DELETE',
+        success: function(result){
+            window.location.reload(true);
+            console.log(result);
+        }
+    })
+};
+
+
+function updateDegree(degree_id){
+event.preventDefault();
+
+var degree_id = $('#degree_id').val();
+var degree_type = $('#degree_type').val();
+var field = $('#field').val();
+
+    $.ajax({
+        url: '/degrees',
+        type: 'PUT',
+        data: "degree_id="+degree_id+
+        		"&degree_type="+degree_type+
+        		"&field="+field,
+
+        success: function(result){
+        console.log(result);
+        console.log("IT WORKS");
+            window.location.replace("/degrees");
+        }
+    })
+};
+
+</script>

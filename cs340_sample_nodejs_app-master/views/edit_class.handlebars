@@ -1,0 +1,64 @@
+<h2>Edit Class</h2>
+
+<form id="editClass">
+ {{#each class}}
+    <input type="hidden" id="class_id" name="class_id" value="{{class_id}}">
+    Class Name: <input type="text" name="class_name" id="class_name" value="{{class_name}}">
+    <br><br>
+    Class Prerequisite: <input type="text" name="prerequisite" id="prerequisite" value="{{prerequisite}}">
+{{/each}}
+    <br><br>
+    Quarter Available: <br>
+    <select name="qtr_offered" name="qtr_offered" id="qtr_offered">
+        <option value="Fall,">FALL</option>
+        <option value ="Winter,">WINTER</option>
+        <option value ="Spring,">SPRING</option>
+        <option value ="Summer,">SUMMER</option>
+        <option value="all">all</option>
+    </select>
+    <br><br> 
+    Instructor: <select name="instructor" id="instructor" name="instructor">
+    {{#each instructors}}
+    <option value="{{instructor_id}}">{{first_name}} {{last_name}}</option>
+    {{/each}}
+    </select>
+    <br><br>
+    <input type="submit" value="Save changes" onclick="updateClass({{class_id}})">
+</form>
+<br>
+
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous">
+        
+        </script>
+
+<script>
+
+function updateClass(class_id){
+event.preventDefault();
+
+var class_id = $('#class_id').val();
+var class_name = $('#class_name').val();
+var qtr_offered = $('#qtr_offered').val();
+var instructor = $('#instructor').val();
+
+    $.ajax({
+        url: '/class',
+        type: 'PUT',
+        data: "class_id="+class_id+
+                "&class_name="+class_name+
+                "&qtr_offered="+qtr_offered+
+                "&instructor="+instructor,
+
+        success: function(result){
+        console.log(result);
+        console.log("IT WORKS");
+            window.location.replace("/class");
+        }
+    })
+};
+
+
+</script>

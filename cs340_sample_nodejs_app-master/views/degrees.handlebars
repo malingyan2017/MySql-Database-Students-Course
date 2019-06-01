@@ -1,0 +1,100 @@
+<h1>List of Degrees</h1>
+<p>Please see below for list of degrees at OSU. Delete/add/filter/Search are all working!</p>
+
+<p>Please let us know if more features/filters should be added</p>
+
+<h3>Add a new degree field</h3>
+<form id="add_degree" action="/degrees" method="post">
+    Type: <input type="text" name="degree_type">
+    <br><br>
+    Field:<input type="text" name="field">
+    <br><br>
+    <input type="submit" value="Add Degree">
+ </form>
+<br>
+
+<h3>Filter Data</h3>
+<form id='filter_degree' action='' method=''>
+<!--- this form does not submit directly, the button handles all the interaction with backend -->
+    <label> Filter by academic rank </label>
+    <select id='degree_type_filter' name="degree_type"> 
+            {{#each degreesForm}}
+        <option value="{{degree_type}}">{{degree_type}}</option>
+            {{/each}}
+    </select>
+    <input type="button" value="Filter" onclick="filterDegreeType()">
+</form>
+<br>
+
+<h3>Search Data</h3>
+<form id='search_degrees' action='' method=''>
+<!--- this form does not submit directly, the button handles all the interaction with backend -->
+    <label> Search degrees by field starting with:</label>
+    <input id='first_name_search_string' type='text' name='first_name_search_string' value=''>
+    <input type="button" value="Search" onclick="searchDegreeByField()">
+</form>
+<br>
+
+
+<h3>Table Data: </h3>
+<table>
+<thead>
+	<th>Degree ID</th>
+	<th>Degree Type</th>
+	<th>Field</th>
+	<th>Delete</th>
+	<th>Edit</th>
+</thead>
+
+<tbody>
+{{#each degrees}}
+	<tr>
+		<td>{{degree_id}}</td>
+		<td>{{degree_type}}</td>
+		<td>{{field}}</td>
+        <td><button onclick="deleteDegree({{degree_id}})">Delete</button></td>
+        <td><a href="/degrees/{{degree_id}}">Edit</a></td>   
+	</tr>
+{{/each}}
+</tbody>
+</table>
+
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous">
+        
+</script>
+
+<script>
+    function deleteDegree(degree_id){
+        console.log("We're in delete degrees");
+    $.ajax({
+        url: '/degrees/' + degree_id,
+        type: 'DELETE',
+        success: function(result){
+            window.location.reload(true);
+            console.log(result);
+        }
+    })
+};
+
+function filterDegreeType() {
+    //get the id of the selected homeworld from the filter dropdown
+    var degree_type = document.getElementById('degree_type_filter').value;
+    console.log('calling filterDegreeType');
+    console.log(degree_type);
+    //construct the URL and redirect to it
+    window.location = '/filter/degrees/' + encodeURI(degree_type)
+}
+
+function searchDegreeByField() {
+    //get the enrollment name
+    var first_name_search_string  = document.getElementById('first_name_search_string').value;
+    console.log(first_name_search_string);
+    //construct the URL and redirect to it
+    window.location = '/search/degrees/' + encodeURI(first_name_search_string)
+}
+
+
+</script>

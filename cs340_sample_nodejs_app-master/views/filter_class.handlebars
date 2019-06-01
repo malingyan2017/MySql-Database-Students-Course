@@ -1,0 +1,30 @@
+<h3>Class Filter by Quarter</h3>
+
+<h3>Table Data</h3>
+<table>
+<thead>
+        <th>ID#</th>
+        <th>Class Name</th>
+        <th>Prerequisite</th>
+        <th>Quarter offered</th>
+        <th>Instructor First</th>
+        <th>Last Name</th>
+        <th>Delete</th>
+        <th>Edit</th>
+</thead>
+
+<tbody>
+{{#each classes}}
+            <tr>
+            	<td>{{class_id}}</td>
+                <td>{{class_name}}</td>
+                <td>{{prerequisite}}</td>
+                <td>{{qtr_offered}}</td>
+                <td>{{first_name}}</td>
+                <td>{{last_name}}</td>
+                <td><button onclick="deleteClass({{class_id}})">Delete</button></td>
+                <td><a href="/class/{{class_id}}">Edit</a></td> 
+            </tr>
+{{/each}}
+</tbody> 
+</table>
