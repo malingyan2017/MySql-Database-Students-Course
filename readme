@@ -1,1 +1,3 @@
-haha
+This is a project developed with HTML, JAVASCRIPT and CSS, with MySql as database.
+The intention of this database project is to help school keep a record of students, instructors and classes. 
+For example, add a new student when she/he enrolls, associate a class to student when he/she choose to register the class, update instructors information etc.
